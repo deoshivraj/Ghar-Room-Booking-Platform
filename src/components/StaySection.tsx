@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Room } from '../types';
-import { Shield, Wifi, Coffee, Sparkles, Check, ArrowRight, Eye, BedDouble, Bath, Lock } from 'lucide-react';
+import { Sparkles, Check, Eye } from 'lucide-react';
 
 interface StaySectionProps {
   rooms: Room[];
@@ -65,13 +65,13 @@ export const StaySection: React.FC<StaySectionProps> = ({ rooms, onSelectRoom })
             </div>
 
             {/* Room Info Text */}
-            <div className="pt-6 px-2 flex flex-col justify-between grow">
+            <div className="pt-6 px-2 flex flex-col grow">
               <div>
-                <div className="flex items-baseline justify-between mb-1.5">
+                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1.5">
                   <h3 className="font-serif text-2xl md:text-3xl font-semibold text-[#223125]">
                     {room.name}
                   </h3>
-                  <span className="text-xs font-medium text-[#7C8B7E]">
+                  <span className="text-xs font-medium text-[#7C8B7E] sm:text-right">
                     {room.type === 'dorm' ? 'Social & Quiet Dorms' : 'Private Ensuite'}
                   </span>
                 </div>
@@ -96,20 +96,14 @@ export const StaySection: React.FC<StaySectionProps> = ({ rooms, onSelectRoom })
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex items-center gap-3 pt-2">
-                <button
-                  onClick={() => onSelectRoom(room)}
-                  className="grow py-3 px-5 rounded-full bg-[#25392B] hover:bg-[#18261C] text-[#FAF7F2] text-xs uppercase tracking-[0.18em] font-medium transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow"
-                >
-                  <span>Book {room.type === 'dorm' ? 'a Bed' : 'This Room'}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
+              {/* Keep the card action focused on room details; booking remains available after viewing details. */}
+              <div className="pt-2 mt-auto">
                 <button
                   onClick={() => setSelectedModalRoom(room)}
-                  className="py-3 px-4 rounded-full border border-[#D5CFC3] hover:border-[#25392B] text-[#3E4E41] hover:text-[#25392B] text-xs uppercase tracking-wider font-medium transition-all"
+                  className="w-full py-3 px-5 rounded-full border border-[#D5CFC3] hover:border-[#25392B] text-[#3E4E41] hover:text-[#25392B] text-xs uppercase tracking-[0.18em] font-medium transition-all flex items-center justify-center gap-2"
                 >
-                  Details
+                  <Eye className="w-4 h-4" />
+                  View Details
                 </button>
               </div>
             </div>
