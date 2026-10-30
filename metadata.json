@@ -1,0 +1,6 @@
+{
+  "name": "Ghar by the Mountains - Dharamkot",
+  "description": "Hostel and cafe in Dharamkot, Himachal Pradesh with dorms, private mountain view rooms, cafe, co-working, and base for Himalayan trails.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
