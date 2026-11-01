@@ -63,6 +63,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
     onConfirmBooking(newBooking);
     setConfirmedBooking(newBooking);
+    window.location.href = getReservationEmailUrl(newBooking);
   };
 
   const getWhatsAppMessageUrl = (b: Booking) => {
@@ -73,9 +74,25 @@ export const BookingModal: React.FC<BookingModalProps> = ({
       `Check-In: ${b.checkIn}%0A` +
       `Check-Out: ${b.checkOut} (${b.nights} nights)%0A` +
       `Guests: ${b.guests}%0A` +
-      `Total Estimated: ₹${b.totalAmount}%0A` +
       `Special Requests: ${b.specialRequests || 'None'}`;
     return `https://wa.me/${CONTACT_DETAILS.whatsappNumber}?text=${text}`;
+  };
+
+  const getReservationEmailUrl = (booking: Booking) => {
+    const subject = `Reservation request - Ghar by the Mountains (${booking.id})`;
+    const message = [
+      'New reservation request - Ghar by the Mountains',
+      `Booking ID: ${booking.id}`,
+      `Guest Name: ${booking.guestName}`,
+      `Guest Email: ${booking.email}`,
+      `Phone: ${booking.phone}`,
+      `Room: ${booking.roomName}`,
+      `Check-In: ${booking.checkIn}`,
+      `Check-Out: ${booking.checkOut} (${booking.nights} nights)`,
+      `Guests: ${booking.guests}`,
+      `Special Requests: ${booking.specialRequests || 'None'}`,
+    ].join('\n');
+    return `mailto:${CONTACT_DETAILS.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
   };
 
   return (
@@ -95,7 +112,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             </div>
 
             <span className="text-xs uppercase tracking-widest text-emerald-800 font-mono">
-              Reservation Confirmed · ID: {confirmedBooking.id}
+              Reservation Request · ID: {confirmedBooking.id}
             </span>
             <h3 className="font-serif text-3xl text-[#213024] font-normal mt-1 mb-3">
               We look forward to welcoming you!
@@ -108,15 +125,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <strong>{confirmedBooking.checkOut}</strong> has been registered.
             </p>
 
-            <div className="bg-[#EFECE3] border border-[#DDD6C8] rounded-2xl p-4 text-left text-xs mb-6 space-y-1.5">
-              <div className="flex justify-between">
-                <span className="text-[#6D7D6F]">Total Amount:</span>
-                <span className="font-bold text-[#25392B] font-mono">₹{confirmedBooking.totalAmount}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-[#6D7D6F]">Payment Method:</span>
-                <span className="text-[#25392B]">Pay at Hostel (UPI / Cash / Card)</span>
-              </div>
+            <div className="bg-[#EFECE3] border border-[#DDD6C8] rounded-2xl p-4 text-xs mb-6">
+              Your email app should open with the reservation details addressed to {CONTACT_DETAILS.email}. Review and send the email to complete your request.
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3">
@@ -170,9 +180,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       }`}
                     >
                       <div className="font-serif text-base font-semibold">{room.name}</div>
-                      <div className={`text-xs mt-0.5 ${selectedRoomId === room.id ? 'text-emerald-200' : 'text-[#69796C]'}`}>
-                        ₹{room.pricePerNight} / night
-                      </div>
                     </button>
                   ))}
                 </div>
@@ -281,18 +288,6 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   onChange={(e) => setSpecialRequests(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl bg-white border border-[#DDD5C5] text-xs text-[#213024]"
                 />
-              </div>
-
-              {/* Pricing Breakdown Summary */}
-              <div className="p-4 rounded-2xl bg-white border border-[#DDD6C8] space-y-1.5">
-                <div className="flex justify-between text-[#68786B]">
-                  <span>{selectedRoom.name} ({nights} {nights === 1 ? 'night' : 'nights'})</span>
-                  <span className="font-mono">₹{basePrice}</span>
-                </div>
-                <div className="flex justify-between text-sm font-bold text-[#25392B] pt-2 border-t border-[#EAE5D9]">
-                  <span>Total Payable:</span>
-                  <span className="font-mono text-base">₹{totalAmount}</span>
-                </div>
               </div>
 
               {/* Submit Button */}

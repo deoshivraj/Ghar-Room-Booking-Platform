@@ -49,14 +49,6 @@ export const AmenitiesSection = () => {
               <h3 className="font-serif text-lg text-[#25392B] font-medium leading-snug group-hover:text-[#18261C] transition-colors">
                 {amenity.title}
               </h3>
-              {amenity.subtitle && (
-                <span className="text-[11px] text-[#7A8B7D] font-mono mt-0.5">
-                  {amenity.subtitle}
-                </span>
-              )}
-              <p className="text-xs text-[#5C6A5E] font-light mt-1.5 leading-relaxed">
-                {amenity.description}
-              </p>
             </div>
           </div>
         ))}

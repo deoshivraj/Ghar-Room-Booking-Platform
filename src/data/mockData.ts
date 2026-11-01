@@ -296,21 +296,17 @@ export const INITIAL_BOOKINGS: Booking[] = [
 export const CONTACT_DETAILS = {
   name: 'Ghar by the Mountains',
   locationTag: 'Upper Dharamkot · Himachal Pradesh',
-  addressLine1: 'Upper Dharamkot (Near Gallu Road)',
-  addressLine2: 'McLeod Ganj, Dharamshala',
-  stateZip: 'Himachal Pradesh - 176219',
+  address: 'Ghar by the Mountains Dharamkot, near Heena Cafe, Dharamkot, Dharamshala, Himachal Pradesh 176216',
   phones: [
-    '+91 7398679706',
-    '+91 9839446787',
     '+91 7303215324',
     '+91 6387718734',
     '+91 6392235194'
   ],
-  primaryPhone: '+91 7398679706',
-  email: 'gharbythemountains@gmail.com',
+  primaryPhone: '+91 7303215324',
+  email: 'ghardharamkot@gmail.com',
   instagram: 'https://instagram.com',
   facebook: 'https://facebook.com',
-  whatsappNumber: '917398679706',
+  whatsappNumber: '917303215324',
   coordinates: {
     lat: 32.251642,
     lng: 76.329190,

@@ -36,39 +36,17 @@ export const ReachUsSection: React.FC = () => {
       return;
     }
 
-    try {
-      const savedSubmissions = localStorage.getItem('ghar_contact_submissions');
-      const parsedSubmissions: unknown = savedSubmissions
-        ? JSON.parse(savedSubmissions)
-        : [];
-      if (
-        !Array.isArray(parsedSubmissions) ||
-        !parsedSubmissions.every(
-          (submission): submission is { email: string; phone: string } =>
-            typeof submission?.email === 'string' && typeof submission?.phone === 'string'
-        )
-      ) {
-        throw new Error('Saved inquiry data has an unexpected format');
-      }
-      const previousSubmissions = parsedSubmissions;
-
-      const alreadySubmitted = previousSubmissions.some(
-        (submission) => submission.email === email && submission.phone === phone
-      );
-      if (alreadySubmitted) {
-        setFormError('An inquiry has already been submitted with this email and phone number.');
-        return;
-      }
-
-      localStorage.setItem(
-        'ghar_contact_submissions',
-        JSON.stringify([...previousSubmissions, { email, phone }])
-      );
-    } catch (error) {
-      console.error('Unable to check or save inquiry details in this browser:', error);
-      setFormError('Unable to verify this inquiry in your browser. Please try again.');
-      return;
-    }
+    const subject = `Stay inquiry from ${formData.name.trim()}`;
+    const message = [
+      `Name: ${formData.name.trim()}`,
+      `Email: ${email}`,
+      `Phone: ${formData.phone.trim()}`,
+      `Travel dates: ${formData.dates.trim() || 'Not specified'}`,
+      '',
+      'Message:',
+      formData.message.trim(),
+    ].join('\n');
+    window.location.href = `mailto:${CONTACT_DETAILS.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
 
     setFormError('');
     setFormSubmitted(true);
@@ -116,9 +94,7 @@ export const ReachUsSection: React.FC = () => {
                 <MapPin className="w-4 h-4 text-[#C6A26C]" />
               </div>
               <div className="text-sm sm:text-base text-[#E5ECE4] leading-relaxed">
-                <p className="font-medium">Upper Dharamkot (Near Gallu Road),</p>
-                <p>McLeod Ganj, Dharamshala</p>
-                <p className="text-[#B9C7B8] font-mono text-xs sm:text-sm">Himachal Pradesh - 176219</p>
+                <p className="font-medium">{CONTACT_DETAILS.address}</p>
                 <p className="text-emerald-300 font-mono text-xs mt-0.5">GPS: 32.251642, 76.329190</p>
               </div>
             </div>
@@ -129,19 +105,16 @@ export const ReachUsSection: React.FC = () => {
                 <Phone className="w-4 h-4 text-[#C6A26C]" />
               </div>
               <div className="text-sm sm:text-base text-[#E5ECE4] space-y-1 font-mono">
-                <div>
-                  <a href="tel:+917398679706" className="hover:text-emerald-300 transition-colors">
-                    +91 7398679706
-                  </a>
-                </div>
-                <div>
-                  <a href="tel:+919839446787" className="hover:text-emerald-300 transition-colors">
-                    +91 9839446787
-                  </a>
-                </div>
-                <div className="text-xs text-[#A9BBA8]">
-                  Direct reception line: <a href="tel:+917303215324" className="underline hover:text-white">+91 7303215324</a>
-                </div>
+                {CONTACT_DETAILS.phones.map((phone) => (
+                  <div key={phone}>
+                    <a
+                      href={`tel:${phone.replace(/\s/g, '')}`}
+                      className="hover:text-emerald-300 transition-colors"
+                    >
+                      {phone}
+                    </a>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -151,10 +124,10 @@ export const ReachUsSection: React.FC = () => {
                 <Mail className="w-4 h-4 text-[#C6A26C]" />
               </div>
               <a
-                href="mailto:ghardharamkot@gmail.com"
+                href={`mailto:${CONTACT_DETAILS.email}`}
                 className="text-sm sm:text-base text-[#E5ECE4] hover:text-emerald-300 transition-colors font-mono break-all"
               >
-                gharbythemountains@gmail.com
+                {CONTACT_DETAILS.email}
               </a>
             </div>
           </div>
@@ -218,9 +191,9 @@ export const ReachUsSection: React.FC = () => {
             {formSubmitted ? (
               <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-center animate-fadeIn my-6">
                 <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto mb-2" />
-                <h4 className="font-serif text-xl font-bold">Message Received!</h4>
+                <h4 className="font-serif text-xl font-bold">Email Draft Ready</h4>
                 <p className="text-xs text-emerald-700 mt-1">
-                  Our Dharamkot front desk will reach out via WhatsApp/email shortly.
+                  Your email app should open with this inquiry addressed to {CONTACT_DETAILS.email}. Review and send it there.
                 </p>
               </div>
             ) : (
@@ -354,7 +327,7 @@ export const ReachUsSection: React.FC = () => {
         </div>
 
         <p className="text-xs text-[#718173] max-w-md mx-auto mb-6">
-          A cozy alpine hostel and cafe perched at 2,150m in Dharamkot, McLeod Ganj, Himachal Pradesh.
+          Find Ghar by the Mountains at {CONTACT_DETAILS.address}.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-6 text-xs uppercase tracking-widest text-[#5C6B5E] mb-6">
