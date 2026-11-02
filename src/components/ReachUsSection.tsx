@@ -17,6 +17,7 @@ import {
 
 export const ReachUsSection: React.FC = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState('');
   const [formData, setFormData] = useState({
     name: '',
@@ -26,7 +27,7 @@ export const ReachUsSection: React.FC = () => {
     message: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const email = formData.email.trim().toLowerCase();
@@ -36,24 +37,42 @@ export const ReachUsSection: React.FC = () => {
       return;
     }
 
-    const subject = `Stay inquiry from ${formData.name.trim()}`;
-    const message = [
-      `Name: ${formData.name.trim()}`,
-      `Email: ${email}`,
-      `Phone: ${formData.phone.trim()}`,
-      `Travel dates: ${formData.dates.trim() || 'Not specified'}`,
-      '',
-      'Message:',
-      formData.message.trim(),
-    ].join('\n');
-    window.location.href = `mailto:${CONTACT_DETAILS.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
-
+    setIsSubmitting(true);
     setFormError('');
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setFormData({ name: '', email: '', phone: '', dates: '', message: '' });
-    }, 4500);
+
+    try {
+      const payload = {
+        name: formData.name.trim(),
+        email,
+        phone: formData.phone.trim(),
+        dates: formData.dates.trim() || 'Not specified',
+        message: formData.message.trim(),
+      };
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Contact form request failed with status ${response.status}`);
+      }
+
+      setFormSubmitted(true);
+      setTimeout(() => {
+        setFormSubmitted(false);
+        setFormData({ name: '', email: '', phone: '', dates: '', message: '' });
+      }, 4500);
+    } catch (error) {
+      console.error('Unable to send contact form submission:', error);
+      setFormError('Message send nahi ho paaya. Please try again or contact us directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -189,11 +208,11 @@ export const ReachUsSection: React.FC = () => {
             </p>
 
             {formSubmitted ? (
-              <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-center animate-fadeIn my-6">
+              <div role="status" className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-center animate-fadeIn my-6">
                 <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto mb-2" />
-                <h4 className="font-serif text-xl font-bold">Email Draft Ready</h4>
+                <h4 className="font-serif text-xl font-bold">Message Sent</h4>
                 <p className="text-xs text-emerald-700 mt-1">
-                  Your email app should open with this inquiry addressed to {CONTACT_DETAILS.email}. Review and send it there.
+                  Thanks! Your inquiry has been sent to our team. We will get back to you shortly.
                 </p>
               </div>
             ) : (
@@ -287,10 +306,11 @@ export const ReachUsSection: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="w-full py-3 rounded-full bg-[#25392B] hover:bg-[#18261C] text-[#FAF7F2] text-xs uppercase tracking-[0.2em] font-semibold transition-all flex items-center justify-center gap-2 shadow-xs"
+                  disabled={isSubmitting}
+                  className="w-full py-3 rounded-full bg-[#25392B] hover:bg-[#18261C] disabled:opacity-60 disabled:cursor-not-allowed text-[#FAF7F2] text-xs uppercase tracking-[0.2em] font-semibold transition-all flex items-center justify-center gap-2 shadow-xs"
                 >
                   <Send className="w-3.5 h-3.5" />
-                  <span>Send Message to Host</span>
+                  <span>{isSubmitting ? 'Sending...' : 'Send Message to Host'}</span>
                 </button>
               </form>
             )}

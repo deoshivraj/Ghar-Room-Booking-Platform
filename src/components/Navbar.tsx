@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrandLogo } from './BrandLogo';
-import { LayoutDashboard, Compass, LogOut, ShieldCheck } from 'lucide-react';
+import { LayoutDashboard, Compass, LogOut, ShieldCheck, Menu, X } from 'lucide-react';
 
 interface NavbarProps {
   onOpenBooking: () => void;
@@ -20,6 +20,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onExitHostMode,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +29,16 @@ export const Navbar: React.FC<NavbarProps> = ({
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsMenuOpen(false);
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [isMenuOpen]);
 
   const navLinks = [
     { name: 'STAY', href: '#stay' },
@@ -52,8 +63,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             <BrandLogo variant="dark" size="md" />
           </a>
 
-          {/* Unified Navigation & Action Section (Always visible, no hamburger menu) */}
-          <div className="flex items-center gap-3 sm:gap-5 md:gap-7 shrink-0">
+          {/* Desktop navigation and booking action */}
+          <div className="hidden md:flex items-center gap-3 sm:gap-5 md:gap-7 shrink-0">
             {/* Inline Navigation Links */}
             <nav className="flex items-center space-x-2.5 sm:space-x-4 md:space-x-7">
               {navLinks.map((link) => (
@@ -123,7 +134,74 @@ export const Navbar: React.FC<NavbarProps> = ({
               BOOK YOUR STAY
             </button>
           </div>
+
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((open) => !open)}
+            className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full border border-[#D5CFC3] text-[#25392B] hover:bg-[#EAE4D7] transition-colors"
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMenuOpen}
+          >
+            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
+
+        {isMenuOpen && (
+          <div className="md:hidden mt-3 rounded-2xl border border-[#E6E1D8] bg-[#FAF7F2] p-3 shadow-lg">
+            <nav className="flex flex-col">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => {
+                    if (activeTab === 'dashboard') setActiveTab('guest');
+                    setIsMenuOpen(false);
+                  }}
+                  className="rounded-xl px-4 py-3 text-xs uppercase tracking-[0.18em] text-[#556358] hover:bg-[#EAE4D7] hover:text-[#25392B] transition-colors"
+                >
+                  {link.name}
+                </a>
+              ))}
+            </nav>
+
+            {isHostMode && (
+              <div className="mt-2 flex items-center gap-2 border-t border-[#E6E1D8] pt-3">
+                <button
+                  onClick={() => setActiveTab(activeTab === 'guest' ? 'dashboard' : 'guest')}
+                  className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#25392B] px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-white"
+                >
+                  {activeTab === 'dashboard' ? <Compass className="w-3.5 h-3.5" /> : <LayoutDashboard className="w-3.5 h-3.5" />}
+                  {activeTab === 'dashboard' ? 'Guest View' : 'Dashboard'}
+                  {activeTab === 'guest' && pendingRequestsCount > 0 && (
+                    <span className="w-4 h-4 rounded-full bg-[#B87333] text-[9px] flex items-center justify-center">
+                      {pendingRequestsCount}
+                    </span>
+                  )}
+                </button>
+                <button
+                  onClick={() => {
+                    onExitHostMode();
+                    setIsMenuOpen(false);
+                  }}
+                  className="p-2.5 rounded-full text-[#6B7B6E] hover:bg-stone-200 hover:text-red-700"
+                  aria-label="Exit host mode"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </div>
+            )}
+
+            <button
+              onClick={() => {
+                onOpenBooking();
+                setIsMenuOpen(false);
+              }}
+              className="mt-3 w-full rounded-full bg-[#25392B] py-3 text-xs uppercase tracking-[0.16em] font-semibold text-[#FAF7F2] hover:bg-[#18261C]"
+            >
+              BOOK YOUR STAY
+            </button>
+          </div>
+        )}
       </div>
     </header>
   );
