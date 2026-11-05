@@ -1,6 +1,5 @@
 import React from 'react';
 import { Room } from '../types';
-import { Sparkles } from 'lucide-react';
 
 interface StaySectionProps {
   rooms: Room[];
@@ -46,7 +45,7 @@ export const StaySection: React.FC<StaySectionProps> = ({ rooms }) => {
             {/* Arched Photo Container (matches the rounded arch in design) */}
             <div className="relative aspect-4/5 sm:aspect-1\/1 w-full overflow-hidden rounded-t-[140px] md:rounded-t-[180px] rounded-b-2xl shadow-md border border-[#E3DDD1] bg-[#3B4D3F]">
               <img
-                src={room.image}
+                src={room.type === 'private' ? '/assets/private-room.png' : room.image}
                 alt={room.name}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -71,18 +70,6 @@ export const StaySection: React.FC<StaySectionProps> = ({ rooms }) => {
                     : 'Wake up to the mountains from your own room.'}
                 </p>
 
-                {/* Micro Badges */}
-                <div className="flex flex-wrap gap-2 mb-5">
-                  {room.features.slice(0, 3).map((feat, idx) => (
-                    <span
-                      key={idx}
-                      className="inline-flex items-center gap-1.5 text-xs text-[#48574B] bg-[#EFECE3] px-2.5 py-1 rounded-full border border-[#DCD6C8]"
-                    >
-                      <Sparkles className="w-3 h-3 text-[#B08044]" />
-                      {feat}
-                    </span>
-                  ))}
-                </div>
               </div>
             </div>
           </div>

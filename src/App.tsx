@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { MessageCircle } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { StaySection } from './components/StaySection';
@@ -8,7 +9,7 @@ import { FindUsSection } from './components/FindUsSection';
 import { ReachUsSection } from './components/ReachUsSection';
 import { BookingModal } from './components/BookingModal';
 import { DashboardView } from './components/DashboardView';
-import { INITIAL_ROOMS, INITIAL_BOOKINGS } from './data/mockData';
+import { CONTACT_DETAILS, INITIAL_ROOMS, INITIAL_BOOKINGS } from './data/mockData';
 import { Booking, Room } from './types';
 
 export default function App() {
@@ -161,6 +162,17 @@ export default function App() {
 
             {/* Reach us (Verified Contact & Quick Inquiry Form) */}
             <ReachUsSection />
+
+            <a
+              href={`https://wa.me/${CONTACT_DETAILS.whatsappNumber}?text=${encodeURIComponent('Hi Ghar team, I have an inquiry!')}`}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Chat with Ghar on WhatsApp"
+              className="fixed bottom-5 right-5 z-40 inline-flex min-h-14 items-center gap-2 rounded-full bg-[#25D366] px-4 text-sm font-semibold text-[#103B23] shadow-lg transition-colors hover:bg-[#1EBE5D] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#103B23]"
+            >
+              <MessageCircle className="h-5 w-5" aria-hidden="true" />
+              <span>WhatsApp</span>
+            </a>
           </>
         )}
       </main>
