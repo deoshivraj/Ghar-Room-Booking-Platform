@@ -69,7 +69,7 @@ export const ReachUsSection: React.FC = () => {
       }, 4500);
     } catch (error) {
       console.error('Unable to send contact form submission:', error);
-      setFormError('Message send nahi ho paaya. Please try again or contact us directly.');
+      setFormError('We couldn’t send your message. Please try again shortly or contact us directly.');
     } finally {
       setIsSubmitting(false);
     }
