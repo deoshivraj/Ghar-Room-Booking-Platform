@@ -104,7 +104,7 @@ export const ReachUsSection: React.FC = () => {
 
             {/* Subtitle */}
             <p className="text-sm sm:text-base text-[#D4DFD3] font-light leading-relaxed mb-8">
-              A peaceful mountain sanctuary in Upper Dharamkot (32°15'05.9"N 76°19'45.1"E). We are happy to help you with arrival directions and trail guidance.
+              A peaceful mountain sanctuary in Upper Dharamkot ({CONTACT_DETAILS.coordinates.dms}). We are happy to help you with arrival directions and trail guidance.
             </p>
 
             {/* Address with MapPin */}
@@ -114,7 +114,7 @@ export const ReachUsSection: React.FC = () => {
               </div>
               <div className="text-sm sm:text-base text-[#E5ECE4] leading-relaxed">
                 <p className="font-medium">{CONTACT_DETAILS.address}</p>
-                <p className="text-emerald-300 font-mono text-xs mt-0.5">GPS: 32.251642, 76.329190</p>
+                <p className="text-emerald-300 font-mono text-xs mt-0.5">GPS: {CONTACT_DETAILS.coordinates.lat}, {CONTACT_DETAILS.coordinates.lng}</p>
               </div>
             </div>
 
@@ -154,7 +154,7 @@ export const ReachUsSection: React.FC = () => {
           {/* Social Icons (Instagram, Facebook, WhatsApp circular buttons matched to image) */}
           <div className="pt-6 border-t border-[#4B634E] flex items-center gap-4">
             <a
-              href="https://instagram.com"
+              href={CONTACT_DETAILS.instagram}
               target="_blank"
               rel="noreferrer"
               className="w-12 h-12 rounded-full border border-white/30 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition-all transform hover:scale-110"

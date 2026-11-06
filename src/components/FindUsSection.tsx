@@ -6,7 +6,7 @@ export const FindUsSection: React.FC = () => {
   const googleMapsUrl = CONTACT_DETAILS.coordinates.googleMapsLink;
   
   const whatsappLocationText = encodeURIComponent(
-    `Live location for Ghar by the Mountains, Dharamkot (32°15'05.9"N 76°19'45.1"E): ${googleMapsUrl}`
+    `Live location for Ghar by the Mountains, Dharamkot (${CONTACT_DETAILS.coordinates.dms}): ${googleMapsUrl}`
   );
   const whatsappUrl = `https://wa.me/?text=${whatsappLocationText}`;
 
@@ -60,7 +60,7 @@ export const FindUsSection: React.FC = () => {
 
             {/* Arrival & Coordinates Info */}
             <div className="mt-8 pt-6 border-t border-[#DDD6C8] text-xs text-[#68786B] space-y-2 font-light">
-              <p>📍 <strong>GPS Coordinates:</strong> <span className="font-mono text-[#25392B] font-medium">{CONTACT_DETAILS.coordinates.dms}</span> (32.251642, 76.329190)</p>
+              <p>📍 <strong>GPS Coordinates:</strong> <span className="font-mono text-[#25392B] font-medium">{CONTACT_DETAILS.coordinates.dms}</span> ({CONTACT_DETAILS.coordinates.lat}, {CONTACT_DETAILS.coordinates.lng})</p>
               <p>🌲 <strong>Upper Dharamkot:</strong> Along the pine ridge path towards Gallu Devi Temple</p>
               <p>🎒 <strong>Trail Access:</strong> Direct base for Triund trek and Gallu waterfall walk</p>
             </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Compass, CalendarCheck, MapPin, Sparkles, Mountain, ArrowUpRight } from 'lucide-react';
+import { CONTACT_DETAILS } from '../data/mockData';
 
 interface HeroProps {
   onOpenBooking: () => void;
@@ -34,7 +35,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onScrollToLocation })
     const fetchWeather = async () => {
       try {
         const response = await fetch(
-          'https://api.open-meteo.com/v1/forecast?latitude=32.251642&longitude=76.329190&current=temperature_2m,weather_code&timezone=auto',
+          `https://api.open-meteo.com/v1/forecast?latitude=${CONTACT_DETAILS.coordinates.lat}&longitude=${CONTACT_DETAILS.coordinates.lng}&current=temperature_2m,weather_code&timezone=auto`,
           { signal: controller.signal }
         );
         if (!response.ok) {
@@ -172,11 +173,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking, onScrollToLocation })
         <div className="relative z-10 pt-6 border-t border-white/10 flex flex-wrap items-center justify-around gap-4 text-xs text-stone-300 font-light">
           <div className="flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
-            <span>Cozy Alpine Pine Wood Dorms</span>
+            <span>Cozy Alpine Pine Wood Dorms And Private Rooms</span>
           </div>
           <div className="flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
-            <span>Dhauladhar Mountain Balconies</span>
+            <span>Dhauladhar Mountain Views</span>
           </div>
           <div className="flex items-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-emerald-300" />

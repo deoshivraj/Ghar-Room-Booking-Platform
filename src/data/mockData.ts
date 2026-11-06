@@ -304,7 +304,7 @@ export const CONTACT_DETAILS = {
   ],
   primaryPhone: '+91 7303215324',
   email: 'ghardharamkot@gmail.com',
-  instagram: 'https://instagram.com',
+  instagram: 'https://www.instagram.com/ghar.dharamkot?mdxt=MTE2bTdoemxmZTJyYw%3D%3D&utm_source=qr',
   facebook: 'https://facebook.com',
   whatsappNumber: '917303215324',
   coordinates: {

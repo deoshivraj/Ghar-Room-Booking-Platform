@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Booking, Room } from '../types';
+import { CONTACT_DETAILS } from '../data/mockData';
 import { 
   LayoutDashboard, 
   Bed, 
@@ -153,7 +154,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <span>Location Pin</span>
                 <Mountain className="w-4 h-4 text-emerald-600" />
               </div>
-              <div className="font-mono text-sm font-bold text-[#213024] mt-1">32.251642, 76.329190</div>
+              <div className="font-mono text-sm font-bold text-[#213024] mt-1">{CONTACT_DETAILS.coordinates.lat}, {CONTACT_DETAILS.coordinates.lng}</div>
               <p className="text-[11px] text-[#69796C] mt-1">Upper Dharamkot (2,180m)</p>
             </div>
 
@@ -263,7 +264,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 <div className="p-3 rounded-xl bg-white border border-[#DDD6C8] text-xs space-y-1 font-mono">
                   <div className="flex justify-between">
                     <span>GPS Coordinates:</span>
-                    <span className="font-bold text-[10px]">32.251642, 76.329190</span>
+                    <span className="font-bold text-[10px]">{CONTACT_DETAILS.coordinates.lat}, {CONTACT_DETAILS.coordinates.lng}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Altitude:</span>
