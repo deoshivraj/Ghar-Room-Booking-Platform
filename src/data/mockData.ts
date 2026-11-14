@@ -239,6 +239,97 @@ export const EXPLORE_SPOTS: ExploreSpot[] = [
     hostTip: 'Stop by the Kangra Tea Cooperative factory outlet nearby for authentic freshly-plucked orthodox tea tins.',
     image: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80',
     polaroidRotation: 'rotate-1'
+  },
+  {
+    id: 'triund-photo',
+    title: 'Triund Ridge',
+    subtitle: 'Snowline & Dhauladhar trail view',
+    distance: '9 km trek from Ghar',
+    travelTime: '3.5 - 4.5 hours hike',
+    type: 'Trek',
+    difficulty: 'Moderate',
+    description: 'Panoramic mountain trail views along the Triund ridge overlooking the Kangra valley and towering snow-capped Dhauladhar peaks.',
+    hostTip: 'Carry a windproof layer and refillable bottle; the ridge breeze cools quickly after noon.',
+    image: '/assets/aistudio/Triund.jpeg',
+    polaroidRotation: 'rotate-1'
+  },
+  {
+    id: 'naddi-photo',
+    title: 'Naddi Viewpoint',
+    subtitle: 'Mountain ridge & valley overlook',
+    distance: '4.5 km from Ghar',
+    travelTime: '15 mins drive / 1 hr walk',
+    type: 'Viewpoint',
+    difficulty: 'Easy',
+    description: 'Sweeping mountain vistas from Naddi village overlooking the Dhauladhar amphitheater and pine-covered slopes.',
+    hostTip: 'Ideal for golden hour photography and clear morning views right after sunrise.',
+    image: '/assets/aistudio/Naddi.jpeg',
+    polaroidRotation: '-rotate-2'
+  },
+  {
+    id: 'gallu-photo',
+    title: 'Gallu Waterfall',
+    subtitle: 'Pine forest stream & waterfall',
+    distance: '2.2 km from Ghar',
+    travelTime: '35 mins walk',
+    type: 'Waterfall',
+    difficulty: 'Easy',
+    description: 'Peaceful Himalayan cascade tucked along the forested path past Gallu Devi Temple on the lower Triund route.',
+    hostTip: 'Morning visits give you the quietest forest walk and crisp mountain air.',
+    image: '/assets/aistudio/Gallu.jpeg',
+    polaroidRotation: 'rotate-2'
+  },
+  {
+    id: 'bhagsu-water-photo',
+    title: 'Bhagsu Waterfall',
+    subtitle: 'Freshwater mountain cascade',
+    distance: '3.0 km from Ghar',
+    travelTime: '40 mins walk / 12 mins ride',
+    type: 'Waterfall',
+    difficulty: 'Easy',
+    description: 'Iconic mountain waterfall above Bhagsunag Temple surrounded by slate steps, pines, and hillside cafes.',
+    hostTip: 'Take the upper trail from Dharamkot for scenic valley views along the way.',
+    image: '/assets/aistudio/Bhagsu water.jpeg',
+    polaroidRotation: '-rotate-1'
+  },
+  {
+    id: 'mall-road-photo',
+    title: 'McLeod Ganj Mall Road',
+    subtitle: 'Local market, cafes & monasteries',
+    distance: '2.5 km from Ghar',
+    travelTime: '25 mins downhill walk / 10 mins cab',
+    type: 'Town / Cafe',
+    difficulty: 'Easy',
+    description: 'Vibrant mountain town street lined with Tibetan eateries, craft stalls, bakeries, and monastery lanes.',
+    hostTip: 'Evening strolls are great for warm momos, thukpa, and local handicrafts.',
+    image: '/assets/aistudio/all road.jpeg',
+    polaroidRotation: 'rotate-1'
+  },
+  {
+    id: 'tea-garden-photo',
+    title: 'Kangra Tea Garden',
+    subtitle: 'Lush green Himalayan tea estates',
+    distance: '8.5 km from Ghar',
+    travelTime: '22 mins drive',
+    type: 'Nature',
+    difficulty: 'Easy',
+    description: 'Terraced tea plantations in Dharamshala framed by misty pine ridges and Dhauladhar peaks.',
+    hostTip: 'Great morning stop for a peaceful walk through the tea rows before heading into town.',
+    image: '/assets/aistudio/Tea garden.jpeg',
+    polaroidRotation: '-rotate-2'
+  },
+  {
+    id: 'hpca-stadium-photo',
+    title: 'HPCA Cricket Stadium',
+    subtitle: 'High-altitude stadium in the mountains',
+    distance: '11.0 km from Ghar',
+    travelTime: '30 mins drive down to Dharamshala',
+    type: 'Sports',
+    difficulty: 'Easy',
+    description: 'Dharamshala’s picturesque international cricket stadium set directly beneath the snowline of the Dhauladhar range.',
+    hostTip: 'Visit on clear mornings when the snow peaks stand out sharply behind the main stands.',
+    image: '/assets/aistudio/Hpca stafium.jpeg',
+    polaroidRotation: 'rotate-2'
   }
 ];
 
